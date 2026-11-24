@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Nashville ED Measurement Brief (S1)</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #0f172a; background: #f8fafc; margin: 0; padding: 2rem; line-height: 1.5; }
+    main { max-width: 960px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 2rem; }
+    h1 { font-size: 1.5rem; margin-top: 0; }
+    .subtitle { color: #475569; font-size: 0.9rem; margin-bottom: 1.5rem; }
+    .callout { background: #eff6ff; border-left: 4px solid #2563eb; padding: 0.9rem 1rem; border-radius: 6px; margin-bottom: 1.5rem; font-size: 0.92rem; }
+    .limits { background: #fffbeb; border: 1px solid #fde68a; padding: 1rem 1.25rem; border-radius: 8px; margin-top: 1.5rem; }
+    .limits h2 { margin-top: 0; font-size: 1rem; color: #92400e; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    th, td { border-bottom: 1px solid #e2e8f0; padding: 0.7rem 0.6rem; text-align: left; vertical-align: top; }
+    th { background: #f1f5f9; font-weight: 600; font-size: 0.82rem; color: #334155; }
+    td.num { text-align: right; font-variant-numeric: tabular-nums; }
+    .na { color: #b45309; font-weight: 600; }
+    code { background: #f1f5f9; padding: 0.1rem 0.35rem; border-radius: 4px; font-size: 0.85em; }
+    .sources { margin-top: 1.5rem; font-size: 0.84rem; color: #475569; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Nashville-Area ED Measurement Brief</h1>
+  <div class="subtitle">
+    CMS Provider Data · Timely &amp; Effective Care (<code>yv7e-xc69</code>, modified 2026-10-19) ·
+    Row reconciliation: 161,313 scanned = 10 retained + 161,303 out of scope
+  </div>
+  <div class="callout">
+    <strong>Why one release still requires period checking:</strong> <code>OP_18b</code> reports <strong>2025</strong> median ED arrival-to-departure duration (discharged cohort, minutes), while <code>OP_22</code> in the very same CSV file reports <strong>2024</strong> left-before-being-seen rates (%).
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Facility ID</th>
+        <th>Hospital Name &amp; Location</th>
+        <th style="text-align:right">OP_18b Median Min (<strong>2025</strong>)</th>
+        <th style="text-align:right">OP_22 Left Before Seen (<strong>2024</strong>)</th>
+        <th>Source CSV Rows</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><code>440029</code></td><td><strong>WILLIAMSON MEDICAL CENTER</strong><br><small>FRANKLIN, TN 37067</small></td><td class='num'>193 min<br><small>n=373</small></td><td class='num'>1%<br><small>n=58,003</small></td><td><code>rows 129310, 129313</code></td></tr><tr><td><code>440039</code></td><td><strong>VANDERBILT UNIVERSITY MEDICAL CENTER</strong><br><small>NASHVILLE, TN 37232</small></td><td class='num'>267 min<br><small>n=355</small></td><td class='num'>1%<br><small>n=140,484</small></td><td><code>rows 129555, 129558</code></td></tr><tr><td><code>440073</code></td><td><strong>MAURY REGIONAL HOSPITAL</strong><br><small>COLUMBIA, TN 38401</small></td><td class='num'>204 min<br><small>n=366</small></td><td class='num'>2%<br><small>n=49,044</small></td><td><code>rows 130115, 130118</code></td></tr><tr><td><code>440082</code></td><td><strong>ASCENSION SAINT THOMAS HOSPITAL</strong><br><small>NASHVILLE, TN 37205</small></td><td class='num'>192 min<br><small>n=764</small></td><td class='num'><span class="na">Not Available (Footnote 5)</span><br><small>n=Not Available</small></td><td><code>rows 130185, 130188</code></td></tr><tr><td><code>440161</code></td><td><strong>TRISTAR CENTENNIAL MEDICAL CENTER</strong><br><small>NASHVILLE, TN 37203</small></td><td class='num'>118 min<br><small>n=418</small></td><td class='num'>1%<br><small>n=77,093</small></td><td><code>rows 130949, 130952</code></td></tr>
+    </tbody>
+  </table>
+  <section class="limits">
+    <h2>Limitations &amp; Interpretation Guardrails</h2>
+    <ul>
+      <li><strong>Not today's live wait time:</strong> <code>OP_18b</code> is a calendar-year 2025 median for discharged ED visits only (excludes admissions, transfers, and psychiatric visits).</li>
+      <li><strong>Never coerce unavailable to zero:</strong> Ascension Saint Thomas (<code>440082</code>) carries Footnote 5 (<em>"Results are not available for this reporting period."</em>), which does not identify a cause.</li>
+      <li><strong>Selected local comparison only:</strong> Five chosen Middle Tennessee hospitals—not a ranking of best hospital care and not all Tennessee facilities.</li>
+    </ul>
+  </section>
+  <section class="sources">
+    <strong>Pinned Sources:</strong>
+    <a href="https://data.cms.gov/provider-data/sites/default/files/resources/0437b5494ac61507ad90f2af6b8085a7_1792599910/Timely_and_Effective_Care-Hospital.csv">Measures CSV (yv7e-xc69)</a> ·
+    <a href="https://data.cms.gov/provider-data/sites/default/files/resources/d3bf87c5505155f549d603688414f3c6_1793059553/Hospital_General_Information_2.csv">Hospital Info CSV (xubh-q36u)</a> ·
+    <a href="https://data.cms.gov/provider-data/sites/default/files/resources/f29bb7c812e242f6edfef0a4b7d0eaca_1760630713/Footnote_Crosswalk.csv">Footnote Crosswalk (y9us-9xdf)</a> ·
+    <a href="https://data.cms.gov/provider-data/sites/default/files/data_dictionaries/hospital/HOSPITAL_Data_Dictionary.pdf">Hospital Data Dictionary PDF</a>
+  </section>
+</main>
+</body>
+</html>

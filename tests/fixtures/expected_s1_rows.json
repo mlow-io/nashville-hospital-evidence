@@ -1,0 +1,112 @@
+[
+  {
+    "facility_id": "440029",
+    "measure_id": "OP_18b",
+    "raw_score": "193",
+    "parsed_score": 193,
+    "raw_sample": "373",
+    "parsed_sample": 373,
+    "raw_footnote": "",
+    "start_date": "01/01/2025",
+    "end_date": "12/31/2025"
+  },
+  {
+    "facility_id": "440029",
+    "measure_id": "OP_22",
+    "raw_score": "1",
+    "parsed_score": 1,
+    "raw_sample": "58003",
+    "parsed_sample": 58003,
+    "raw_footnote": "",
+    "start_date": "01/01/2024",
+    "end_date": "12/31/2024"
+  },
+  {
+    "facility_id": "440039",
+    "measure_id": "OP_18b",
+    "raw_score": "267",
+    "parsed_score": 267,
+    "raw_sample": "355",
+    "parsed_sample": 355,
+    "raw_footnote": "",
+    "start_date": "01/01/2025",
+    "end_date": "12/31/2025"
+  },
+  {
+    "facility_id": "440039",
+    "measure_id": "OP_22",
+    "raw_score": "1",
+    "parsed_score": 1,
+    "raw_sample": "140484",
+    "parsed_sample": 140484,
+    "raw_footnote": "",
+    "start_date": "01/01/2024",
+    "end_date": "12/31/2024"
+  },
+  {
+    "facility_id": "440073",
+    "measure_id": "OP_18b",
+    "raw_score": "204",
+    "parsed_score": 204,
+    "raw_sample": "366",
+    "parsed_sample": 366,
+    "raw_footnote": "",
+    "start_date": "01/01/2025",
+    "end_date": "12/31/2025"
+  },
+  {
+    "facility_id": "440073",
+    "measure_id": "OP_22",
+    "raw_score": "2",
+    "parsed_score": 2,
+    "raw_sample": "49044",
+    "parsed_sample": 49044,
+    "raw_footnote": "",
+    "start_date": "01/01/2024",
+    "end_date": "12/31/2024"
+  },
+  {
+    "facility_id": "440082",
+    "measure_id": "OP_18b",
+    "raw_score": "192",
+    "parsed_score": 192,
+    "raw_sample": "764",
+    "parsed_sample": 764,
+    "raw_footnote": "",
+    "start_date": "01/01/2025",
+    "end_date": "12/31/2025"
+  },
+  {
+    "facility_id": "440082",
+    "measure_id": "OP_22",
+    "raw_score": "Not Available",
+    "parsed_score": null,
+    "raw_sample": "Not Available",
+    "parsed_sample": null,
+    "raw_footnote": "5",
+    "start_date": "01/01/2024",
+    "end_date": "12/31/2024"
+  },
+  {
+    "facility_id": "440161",
+    "measure_id": "OP_18b",
+    "raw_score": "118",
+    "parsed_score": 118,
+    "raw_sample": "418",
+    "parsed_sample": 418,
+    "raw_footnote": "",
+    "start_date": "01/01/2025",
+    "end_date": "12/31/2025"
+  },
+  {
+    "facility_id": "440161",
+    "measure_id": "OP_22",
+    "raw_score": "1",
+    "parsed_score": 1,
+    "raw_sample": "77093",
+    "parsed_sample": 77093,
+    "raw_footnote": "",
+    "start_date": "01/01/2024",
+    "end_date": "12/31/2024"
+  }
+]

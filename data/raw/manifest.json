@@ -1,0 +1,46 @@
+{
+  "retrieved_at": "2026-11-24T23:51:42.065616+00:00",
+  "artifacts": {
+    "timely_care": {
+      "dataset_id": "yv7e-xc69",
+      "title": "Timely and Effective Care - Hospital",
+      "modified": "2026-10-19",
+      "metastore_url": "https://data.cms.gov/provider-data/api/1/metastore/schemas/dataset/items/yv7e-xc69",
+      "download_url": "https://data.cms.gov/provider-data/sites/default/files/resources/0437b5494ac61507ad90f2af6b8085a7_1792599910/Timely_and_Effective_Care-Hospital.csv",
+      "filename": "Timely_and_Effective_Care-Hospital.csv",
+      "bytes": 39116886,
+      "sha256": "473241c09b40010baa4b734d0b8bed540d2c275491368da5d08be4f19a019b92",
+      "retrieved_at": "2026-11-24T23:51:42.065616+00:00"
+    },
+    "hospital_info": {
+      "dataset_id": "xubh-q36u",
+      "title": "Hospital General Information",
+      "modified": "2026-10-26",
+      "metastore_url": "https://data.cms.gov/provider-data/api/1/metastore/schemas/dataset/items/xubh-q36u",
+      "download_url": "https://data.cms.gov/provider-data/sites/default/files/resources/d3bf87c5505155f549d603688414f3c6_1793059553/Hospital_General_Information_2.csv",
+      "filename": "Hospital_General_Information.csv",
+      "bytes": 1461350,
+      "sha256": "ff2a82a7149975fb86348e7f901aa3bcd9f3701e8b0ecd0ab34702df193ff559",
+      "retrieved_at": "2026-11-24T23:51:42.065616+00:00"
+    },
+    "footnotes": {
+      "dataset_id": "y9us-9xdf",
+      "title": "Footnote Crosswalk",
+      "modified": "2025-09-18",
+      "metastore_url": "https://data.cms.gov/provider-data/api/1/metastore/schemas/dataset/items/y9us-9xdf",
+      "download_url": "https://data.cms.gov/provider-data/sites/default/files/resources/f29bb7c812e242f6edfef0a4b7d0eaca_1760630713/Footnote_Crosswalk.csv",
+      "filename": "Footnote_Crosswalk.csv",
+      "bytes": 3456,
+      "sha256": "5214e1468fb04c5cdeac8920f2c446cccaa65e2f6f929424cd228042a52d963e",
+      "retrieved_at": "2026-11-24T23:51:42.065616+00:00"
+    },
+    "data_dictionary": {
+      "dataset_id": "HOSPITAL_Data_Dictionary",
+      "download_url": "https://data.cms.gov/provider-data/sites/default/files/data_dictionaries/hospital/HOSPITAL_Data_Dictionary.pdf",
+      "filename": "HOSPITAL_Data_Dictionary.pdf",
+      "bytes": 1204570,
+      "sha256": "9688c69950c0052ff3b0e1af05065c563aeb3dcc626a116b6dff4e70d31ee962",
+      "retrieved_at": "2026-11-24T23:51:42.065616+00:00"
+    }
+  }
+}
