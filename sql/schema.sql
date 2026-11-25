@@ -155,3 +155,16 @@ CREATE TABLE IF NOT EXISTS cert_2025_summary (
     measurement_scope_note TEXT NOT NULL,
     PRIMARY KEY (part, review_decision, error_code)
 );
+
+CREATE TABLE IF NOT EXISTS hospital_service_area_2025 (
+    ccn TEXT NOT NULL REFERENCES facility_attributes(facility_id),
+    zip_cd_of_residence TEXT NOT NULL,
+    raw_total_cases TEXT NOT NULL,
+    parsed_total_cases INTEGER,
+    raw_total_days_of_care TEXT NOT NULL,
+    parsed_total_days_of_care INTEGER,
+    raw_total_charges TEXT NOT NULL,
+    parsed_total_charges REAL,
+    is_suppressed INTEGER NOT NULL,
+    PRIMARY KEY (ccn, zip_cd_of_residence)
+);

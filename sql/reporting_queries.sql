@@ -130,3 +130,44 @@ SELECT
     measurement_scope_note
 FROM cert_2025_summary
 ORDER BY part, unweighted_claim_line_count DESC, error_code;
+
+-- name: hsa_2025_hospital_catchment
+-- 2025 Medicare FFS Inpatient Hospital Service Area summary (suppressed '<11' ZIP rows kept NULL, counted explicitly)
+SELECT
+    h.ccn,
+    f.facility_name,
+    f.zip_code AS hospital_zip,
+    COUNT(*) AS total_zip_rows,
+    SUM(CASE WHEN h.is_suppressed = 0 THEN 1 ELSE 0 END) AS visible_zip_rows,
+    SUM(CASE WHEN h.is_suppressed = 1 THEN 1 ELSE 0 END) AS suppressed_zip_rows,
+    SUM(COALESCE(h.parsed_total_cases, 0)) AS visible_medicare_cases,
+    SUM(CASE WHEN SUBSTR(h.zip_cd_of_residence, 1, 2) IN ('37', '38') AND h.is_suppressed = 0 THEN h.parsed_total_cases ELSE 0 END) AS visible_tn_zip_cases,
+    ROUND(
+        100.0 * SUM(CASE WHEN SUBSTR(h.zip_cd_of_residence, 1, 2) IN ('37', '38') AND h.is_suppressed = 0 THEN h.parsed_total_cases ELSE 0 END)
+        / NULLIF(SUM(COALESCE(h.parsed_total_cases, 0)), 0),
+        1
+    ) AS pct_visible_cases_tn_zips
+FROM hospital_service_area_2025 h
+JOIN facility_attributes f ON f.facility_id = h.ccn
+GROUP BY h.ccn, f.facility_name, f.zip_code
+ORDER BY visible_medicare_cases DESC;
+
+-- name: hsa_2025_top_feeder_zips
+-- Top visible feeder ZIPs per Nashville hospital (excludes suppressed '*' rows without coercing to zero)
+WITH ranked AS (
+    SELECT
+        h.ccn,
+        f.facility_name,
+        h.zip_cd_of_residence,
+        h.parsed_total_cases,
+        h.parsed_total_days_of_care,
+        ROUND(h.parsed_total_charges, 2) AS parsed_total_charges,
+        ROW_NUMBER() OVER (PARTITION BY h.ccn ORDER BY h.parsed_total_cases DESC, h.zip_cd_of_residence) AS rn
+    FROM hospital_service_area_2025 h
+    JOIN facility_attributes f ON f.facility_id = h.ccn
+    WHERE h.is_suppressed = 0 AND h.parsed_total_cases IS NOT NULL
+)
+SELECT ccn, facility_name, rn AS zip_rank, zip_cd_of_residence, parsed_total_cases, parsed_total_days_of_care, parsed_total_charges
+FROM ranked
+WHERE rn <= 5
+ORDER BY ccn, zip_rank;

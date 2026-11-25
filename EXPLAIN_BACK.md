@@ -45,3 +45,10 @@ Review these questions out loud without looking at the code before any healthcar
     Contractual allowances (`Less Contractual Allowance and Discounts on Patients' Accounts`) write off the gap between chargemaster list prices and contracted insurer/government fee schedules (`Net Patient Revenue` is what enters the operating ledger before operating expenses).
 12. **In the CMS CERT 2025 file, why are there `163,940` rows across only `37,581` claims — and why isn’t "Insufficient Documentation" a fraud metric?**
     Institutional Part A outpatient claims (`3. Part A Excluding Inpatient Hospital PPS`) carry multiple service-line rows per `claim_control_number`. Separately, CERT PUF counts are unweighted sample review outcomes measuring billing/documentation/medical-necessity compliance—never weighted national dollar rates and never proof of fraud.
+
+---
+
+### Part 5 — Reconciliation #7: Hospital Service Area Catchment (`M2`, 2025)
+
+13. **Why can’t you infer "all-patient market share" or replace `*` with `5` in Hospital Service Area (`M2`)?**
+    HSA covers **Medicare FFS inpatient stays only** (excluding commercial, Medicaid/TennCare, Medicare Advantage, and outpatient volume). ZIPs with `<11` cases are masked with `*` by CMS (`1,420 / 1,717` feeder ZIP rows at Vanderbilt), so keeping them `NULL` prevents fabricating up to ~1,400–7,000 missing cases per hospital—and `89.8%` visible TN origin at Vanderbilt vs. `99.8%–100.0%` at Maury/Williamson shows regional tertiary draw without overclaiming all-payer market share.

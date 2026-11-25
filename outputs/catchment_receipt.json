@@ -1,0 +1,23 @@
+{
+  "retrieved_at": "2026-11-25T15:05:43.855717+00:00",
+  "dataset_id": "8708ca8b-8636-44ed-8303-724cbfaf78ad",
+  "api_url": "https://data.cms.gov/data-api/v1/dataset/8708ca8b-8636-44ed-8303-724cbfaf78ad/data",
+  "facilities": [
+    "440029",
+    "440039",
+    "440073",
+    "440082",
+    "440161"
+  ],
+  "total_rows": 4324,
+  "rows_by_ccn": {
+    "440029": 357,
+    "440039": 1717,
+    "440073": 272,
+    "440082": 1043,
+    "440161": 935
+  },
+  "filename": "catchment/hsa_2025_nashville.json",
+  "bytes": 698745,
+  "sha256": "0833430bbbdc70cbac3e13e9aa8ddc43d2eb7de2deafcdd4ace3bcda9123c141"
+}

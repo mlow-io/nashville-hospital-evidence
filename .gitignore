@@ -7,5 +7,6 @@ data/raw/*.pdf
 data/raw/*.json
 data/raw/archives/*.zip
 data/raw/finance/
+data/raw/catchment/
 outputs/*.sqlite3
 !outputs/.gitkeep
