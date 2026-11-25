@@ -34,3 +34,14 @@ Review these questions out loud without looking at the code before any healthcar
    `Avg_Submtd_Cvrd_Chrg` reflects gross chargemaster list prices before contractual discounts. Medicare pays fixed MS-DRG prospective amounts (`Avg_Mdcr_Pymt_Amt`, plus beneficiary deductibles/coinsurance inside `Avg_Tot_Pymt_Amt`), often a fraction of gross charges—and this dataset covers Medicare FFS discharges only.
 9. **Why must hospital averages across DRGs be weighted by `Tot_Dschrgs`?**
    Because a DRG with 400 stays carries 40× the volume of a rare DRG with 10 stays; taking `AVG(avg_submtd_cvrd_chrg)` gives equal weight to rare procedures and misstates hospital totals.
+
+---
+
+### Part 4 — Reconciliation #6: Hospital Cost Reports (HCRIS `A2` Lite) & CMS CERT (`S5`)
+
+10. **Why can’t you divide Vanderbilt’s HCRIS `Total Costs` by its CY 2024 Medicare Inpatient DRG discharges?**
+    Two separate reasons: (a) **Population mismatch** — HCRIS covers *all payers* (commercial, Medicaid, Medicare, self-pay) across *both inpatient and outpatient* services, whereas the DRG file is Medicare FFS inpatient only; (b) **Period mismatch** — TriStar Centennial (`440161`) reports HCRIS on calendar year `01/01–12/31`, while the other four Nashville hospitals report on fiscal year `07/01–06/30`.
+11. **Why do HCRIS Gross Charges shrink by ~70–87% before reaching `Net Patient Revenue`?**
+    Contractual allowances (`Less Contractual Allowance and Discounts on Patients' Accounts`) write off the gap between chargemaster list prices and contracted insurer/government fee schedules (`Net Patient Revenue` is what enters the operating ledger before operating expenses).
+12. **In the CMS CERT 2025 file, why are there `163,940` rows across only `37,581` claims — and why isn’t "Insufficient Documentation" a fraud metric?**
+    Institutional Part A outpatient claims (`3. Part A Excluding Inpatient Hospital PPS`) carry multiple service-line rows per `claim_control_number`. Separately, CERT PUF counts are unweighted sample review outcomes measuring billing/documentation/medical-necessity compliance—never weighted national dollar rates and never proof of fraud.

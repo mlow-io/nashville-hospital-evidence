@@ -1,0 +1,70 @@
+{
+  "retrieved_at": "2026-11-25T07:10:25.061012+00:00",
+  "facilities": [
+    "440029",
+    "440039",
+    "440073",
+    "440082",
+    "440161"
+  ],
+  "hcris": {
+    "releases": {
+      "2022": {
+        "dataset_id": "8457c184-a531-40db-8597-2497fec80c7a",
+        "title": "Hospital Provider Cost Report : 2022-12-06",
+        "api_url": "https://data.cms.gov/data-api/v1/dataset/8457c184-a531-40db-8597-2497fec80c7a/data",
+        "row_count": 5,
+        "rows_by_ccn": {
+          "440029": 1,
+          "440039": 1,
+          "440073": 1,
+          "440082": 1,
+          "440161": 1
+        }
+      },
+      "2023": {
+        "dataset_id": "f08d4c46-c0e4-4bcb-a54a-c62c87d59251",
+        "title": "Hospital Provider Cost Report : 2023-12-06",
+        "api_url": "https://data.cms.gov/data-api/v1/dataset/f08d4c46-c0e4-4bcb-a54a-c62c87d59251/data",
+        "row_count": 5,
+        "rows_by_ccn": {
+          "440029": 1,
+          "440039": 1,
+          "440073": 1,
+          "440082": 1,
+          "440161": 1
+        }
+      },
+      "2024": {
+        "dataset_id": "44060663-47d8-4ced-a115-b53b4c270acb",
+        "title": "Hospital Provider Cost Report : 2024-01-02",
+        "api_url": "https://data.cms.gov/data-api/v1/dataset/44060663-47d8-4ced-a115-b53b4c270acb/data",
+        "row_count": 5,
+        "rows_by_ccn": {
+          "440029": 1,
+          "440039": 1,
+          "440073": 1,
+          "440082": 1,
+          "440161": 1
+        }
+      }
+    },
+    "total_rows": 15,
+    "filename": "finance/hcris_nashville_2022_2024.json",
+    "bytes": 78785,
+    "sha256": "69a06fc53764e9b288132063476e97b06f4008ae565da8159cc31ab9974adf31",
+    "dictionary": {
+      "url": "https://data.cms.gov/sites/default/files/2024-03/9756088d-5280-4090-80b9-449d31ef25a3/Cost%20Report%20Data%20Dictionary%20Update.pdf",
+      "filename": "finance/Cost_Report_Data_Dictionary.pdf",
+      "bytes": 377560,
+      "sha256": "40342bb506d4c39ad6a3306d188f414e97e683c8c7241aa5e0975bdc59c87b81"
+    }
+  },
+  "cert_2025": {
+    "dataset_id": "6395b458-2f89-4828-8c1a-e1e16b723d48",
+    "csv_url": "https://data.cms.gov/sites/default/files/2026-01/53600220-96ac-49b3-bee7-83452b2b1df9/2025%20PartAPartB%20Public%20Data.csv",
+    "filename": "finance/cert_2025_partA_partB_public_data.csv",
+    "bytes": 13922114,
+    "sha256": "df6996cdbe3ac5e5ad1a052b1f8a08bdea9685887e8beb9773baa66d12e61972"
+  }
+}

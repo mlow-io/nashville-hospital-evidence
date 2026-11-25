@@ -4,6 +4,8 @@ __pycache__/
 .pytest_cache/
 data/raw/*.csv
 data/raw/*.pdf
+data/raw/*.json
 data/raw/archives/*.zip
+data/raw/finance/
 outputs/*.sqlite3
 !outputs/.gitkeep

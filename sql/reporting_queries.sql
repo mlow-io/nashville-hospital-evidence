@@ -82,3 +82,51 @@ FROM inpatient_drg_2024 d
 JOIN shared s ON s.drg_cd = d.drg_cd
 JOIN facility_attributes f ON f.facility_id = d.ccn
 ORDER BY s.cohort_discharges DESC, d.drg_cd, d.avg_tot_pymt_amt DESC;
+
+-- name: hcris_hospital_summary
+-- All-payer, inpatient + outpatient Hospital Cost Reports (FY begin/end explicit; never mix with CY DRG denominator)
+SELECT
+    h.hcris_release_year,
+    h.ccn,
+    h.hospital_name,
+    h.rpt_rec_num,
+    h.fy_begin,
+    h.fy_end,
+    h.period_alignment_status,
+    h.report_count_in_year,
+    h.rural_versus_urban,
+    h.beds,
+    h.total_discharges,
+    h.medicare_discharges,
+    h.medicaid_discharges,
+    ROUND(h.total_patient_revenue, 2) AS total_patient_revenue,
+    ROUND(h.contractual_allowance, 2) AS contractual_allowance,
+    ROUND(h.net_patient_revenue, 2) AS net_patient_revenue,
+    ROUND(h.total_costs, 2) AS total_costs,
+    ROUND(h.operating_expense, 2) AS operating_expense,
+    ROUND(h.net_income_patient_service, 2) AS net_income_patient_service,
+    ROUND(h.total_other_income, 2) AS total_other_income,
+    ROUND(h.net_income, 2) AS net_income,
+    ROUND(h.cost_to_charge_ratio, 6) AS cost_to_charge_ratio,
+    ROUND(h.uncompensated_care_cost, 2) AS uncompensated_care_cost,
+    ROUND(h.contractual_allowance / NULLIF(h.total_patient_revenue, 0) * 100.0, 1) AS contractual_discount_pct,
+    ROUND(h.net_patient_revenue / NULLIF(h.total_patient_revenue, 0) * 100.0, 1) AS net_to_gross_pct,
+    ROUND(h.net_income_patient_service / NULLIF(h.net_patient_revenue, 0) * 100.0, 1) AS patient_operating_margin_pct
+FROM hcris_cost_reports h
+ORDER BY h.hcris_release_year DESC, h.ccn, h.rpt_rec_num;
+
+-- name: cert_2025_error_breakdown
+-- Unweighted RY 2025 CERT PUF sample claim lines & distinct claims (NOT national weighted dollar rates; improper payment != fraud)
+SELECT
+    part,
+    review_decision,
+    error_code,
+    error_category,
+    unweighted_claim_line_count,
+    unweighted_distinct_claim_count,
+    part_total_lines,
+    part_total_distinct_claims,
+    ROUND(unweighted_line_share_pct, 2) AS unweighted_line_share_pct,
+    measurement_scope_note
+FROM cert_2025_summary
+ORDER BY part, unweighted_claim_line_count DESC, error_code;

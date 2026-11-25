@@ -105,3 +105,53 @@ CREATE TABLE IF NOT EXISTS inpatient_drg_2024 (
     avg_mdcr_pymt_amt REAL NOT NULL,
     PRIMARY KEY (ccn, drg_cd)
 );
+
+CREATE TABLE IF NOT EXISTS hcris_cost_reports (
+    rpt_rec_num TEXT NOT NULL,
+    hcris_release_year TEXT NOT NULL,
+    dataset_id TEXT NOT NULL,
+    ccn TEXT NOT NULL REFERENCES facility_attributes(facility_id),
+    hospital_name TEXT NOT NULL,
+    fy_begin TEXT NOT NULL,
+    fy_end TEXT NOT NULL,
+    period_alignment_status TEXT NOT NULL,
+    report_count_in_year INTEGER NOT NULL,
+    rural_versus_urban TEXT NOT NULL,
+    provider_type TEXT NOT NULL,
+    type_of_control TEXT NOT NULL,
+    beds INTEGER,
+    medicare_discharges INTEGER,
+    medicaid_discharges INTEGER,
+    total_discharges INTEGER,
+    inpatient_charges REAL,
+    outpatient_charges REAL,
+    total_patient_revenue REAL,
+    contractual_allowance REAL,
+    net_patient_revenue REAL,
+    total_costs REAL,
+    operating_expense REAL,
+    net_income_patient_service REAL,
+    total_other_income REAL,
+    net_income REAL,
+    cost_to_charge_ratio REAL,
+    charity_care_cost REAL,
+    bad_debt_expense REAL,
+    uncompensated_care_cost REAL,
+    medicaid_charges REAL,
+    medicaid_net_revenue REAL,
+    PRIMARY KEY (rpt_rec_num, hcris_release_year)
+);
+
+CREATE TABLE IF NOT EXISTS cert_2025_summary (
+    part TEXT NOT NULL,
+    review_decision TEXT NOT NULL,
+    error_code TEXT NOT NULL,
+    error_category TEXT NOT NULL,
+    unweighted_claim_line_count INTEGER NOT NULL,
+    unweighted_distinct_claim_count INTEGER NOT NULL,
+    part_total_lines INTEGER NOT NULL,
+    part_total_distinct_claims INTEGER NOT NULL,
+    unweighted_line_share_pct REAL NOT NULL,
+    measurement_scope_note TEXT NOT NULL,
+    PRIMARY KEY (part, review_decision, error_code)
+);
