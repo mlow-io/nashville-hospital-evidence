@@ -1,21 +1,36 @@
-# Five-Minute Explain-Back Guide (`S1`)
+# Five-Minute Explain-Back Guide (`S1 → M1 + Sparse Archives + S2 RCM`)
 
-Review these questions out loud without looking at the code before any analyst or operations interview:
+Review these questions out loud without looking at the code before any healthcare data or analyst interview:
 
-### 1. Why are there 10 rows in `nashville_ed_observations.csv` when we only selected 5 hospitals?
-Because the **grain** of CMS `Timely_and_Effective_Care-Hospital.csv` (`yv7e-xc69`) is **one row per facility + measure + collection period**, not one row per hospital. Five hospitals × two measures (`OP_18b` and `OP_22`) equals 10 observations.
+---
 
-### 2. Why can’t you compare `OP_18b` and `OP_22` as if they happened in the same year?
-Inside the exact same November 2026 CMS release CSV:
-- **`OP_18b`** (median ED arrival-to-departure minutes for discharged patients) was collected over **01/01/2025 – 12/31/2025**.
-- **`OP_22`** (% who left before being seen) was collected over **01/01/2024 – 12/31/2024**.
-Always check `Start Date` and `End Date` per measure—never assume one release file shares one calendar period.
+### Part 1 — Core S1 Measurement & Reconciliation
 
-### 3. Why doesn’t Ascension Saint Thomas show `0%` for `OP_22`?
-CMS published `"Not Available"` with **Footnote 5** (*"Results are not available for this reporting period."*). Turning unavailable strings into `0` makes missing data look like 0% walkouts—one of the classic hospital reporting bugs. Footnote 5 also does **not** explain why data was unavailable.
+1. **Why are there 10 rows in `S1` (and 20 in `M1`) when we only selected 5 hospitals?**
+   Because the **grain** of `Timely_and_Effective_Care-Hospital.csv` (`yv7e-xc69`) is **one row per facility + measure + collection period**, not one row per hospital.
+2. **Why can’t you compare `OP_18b` and `OP_22` as the same year?**
+   Inside the November 2026 CMS release, `OP_18b` (median minutes, discharged cohort) covers **2025**, whereas `OP_22` (% left before being seen) covers **2024**.
+3. **Why doesn’t Ascension Saint Thomas show `0%` for `OP_22`?**
+   It carries `"Not Available"` with **Footnote 5** (*"Results are not available for this reporting period."*). Turning missing text into `0` invents zero walkouts.
+4. **Why reconcile `raw_total == retained + discarded` and test duplicate Facility IDs?**
+   To prove 0 rows silently vanished from the 161,313-row CMS release and ensure a `LEFT JOIN` to Hospital General Info cannot multiply rows silently.
 
-### 4. What does `OP_18b` actually measure (and what doesn’t it measure)?
-It is the **historical 2025 median time** in minutes from ED arrival to departure **for patients who were discharged** (transfers, admitted patients, and psychiatric/mental-health visits are excluded). It is **not** today’s live ER wait time, **not** time until first clinician, and **not** Medicare-only.
+---
 
-### 5. Why do we reconcile `raw_total == retained_in_scope + discarded_out_of_scope`?
-So we can prove all 161,313 CMS rows were accounted for—10 retained in scope and 161,303 out-of-scope hospitals/measures explicitly accounted for rather than silently dropped—and so duplicate keys in the hospital dimension fail loudly instead of multiplying rows in joins.
+### Part 2 — Reconciliation #4: Sparse CMS Archives (`2026-08-13` → `2026-09-30` → `2026-11-12`)
+
+5. **Why did the September `2026-09-30` archive show no `OP_18b` update, and why didn't we delete the 5 hospitals?**
+   The `2026-09-30` CMS hospital archive (3.15 MB, 10 files) only shipped Complications/Deaths updates and omitted `yv7e-xc69`. Modeling **archive events** separately from **established dataset versions** lets `resolve_as_of_date("2026-09-30")` carry forward `2026-08-13` cleanly instead of erasing hospitals—while failing closed before the first base exists.
+6. **Why did we select `yv7e-xc69` by dataset ID and reject `97xg-v3wv`?**
+   Both `2026-08-13` and `2026-11-12` include `97xg-v3wv_..._REH_Timely_and_Effective_Care-Hospital.csv` (Rural Emergency Hospitals). Selecting strictly by dataset ID (`yv7e-xc69`) and excluding `__MACOSX/` prevents mixing in the wrong facility cohort.
+7. **Williamson Medical Center’s `OP_18b` moved `190 → 193` min (`2026-08-13` → `2026-11-12`). Can we call that worsening ER delays?**
+   No—because `2026-08-13` measured `10/01/2024–09/30/2025` while `2026-11-12` measured `01/01/2025–12/31/2025`. Those windows overlap **9 months (`Jan–Sep 2025`)**, so this is a rolling-window refresh, not an independent quarter trend.
+
+---
+
+### Part 3 — Reconciliation #5: Medicare Inpatient Charge vs. Payment (`S2`)
+
+8. **Why is a hospital’s average "submitted charge" never revenue—and not what patients owe?**
+   `Avg_Submtd_Cvrd_Chrg` reflects gross chargemaster list prices before contractual discounts. Medicare pays fixed MS-DRG prospective amounts (`Avg_Mdcr_Pymt_Amt`, plus beneficiary deductibles/coinsurance inside `Avg_Tot_Pymt_Amt`), often a fraction of gross charges—and this dataset covers Medicare FFS discharges only.
+9. **Why must hospital averages across DRGs be weighted by `Tot_Dschrgs`?**
+   Because a DRG with 400 stays carries 40× the volume of a rare DRG with 10 stays; taking `AVG(avg_submtd_cvrd_chrg)` gives equal weight to rare procedures and misstates hospital totals.

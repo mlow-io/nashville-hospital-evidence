@@ -1,0 +1,64 @@
+{
+  "retrieved_at": "2026-11-25T02:23:45.821188+00:00",
+  "archives": {
+    "2026-08-13": {
+      "release_date": "2026-08-13",
+      "download_url": "https://data.cms.gov/provider-data/sites/default/files/dataset-archives/theme/hospitals/hospitals_2026-08-13.zip",
+      "filename": "hospitals_2026-08-13.zip",
+      "bytes": 14114406,
+      "sha256": "0a4a8507cab940dbc49b248892f24391a822c7f0c4776cf4e37dddcc48862d77",
+      "file_count": 79,
+      "timely_care_entry": "hospitals_2026-08-13/yv7e-xc69_2026-07-22_Timely_and_Effective_Care-Hospital.csv",
+      "hospital_info_entry": "hospitals_2026-08-13/xubh-q36u_2026-07-22_Hospital_General_Information.csv",
+      "footnotes_entry": "hospitals_2026-08-13/y9us-9xdf_2025-09-18_Footnote_Crosswalk.csv",
+      "has_timely_care": true,
+      "rural_emergency_entries": [
+        "hospitals_2026-08-13/97xg-v3wv_2026-07-22_REH_Timely_and_Effective_Care-Hospital.csv",
+        "hospitals_2026-08-13/d2k3-k3ac_2026-07-22_REH_Timely_and_Effective_Care-National.csv"
+      ]
+    },
+    "2026-09-30": {
+      "release_date": "2026-09-30",
+      "download_url": "https://data.cms.gov/provider-data/sites/default/files/dataset-archives/theme/hospitals/hospitals_2026-09-30.zip",
+      "filename": "hospitals_2026-09-30.zip",
+      "bytes": 3154675,
+      "sha256": "991c40b1a271386187f8338ac6b7754e9f7fdd05b7e5d027022e67537176f659",
+      "file_count": 10,
+      "timely_care_entry": null,
+      "hospital_info_entry": null,
+      "footnotes_entry": null,
+      "has_timely_care": false,
+      "rural_emergency_entries": []
+    },
+    "2026-11-12": {
+      "release_date": "2026-11-12",
+      "download_url": "https://data.cms.gov/provider-data/sites/default/files/dataset-archives/theme/hospitals/hospitals_2026-11-12.zip",
+      "filename": "hospitals_2026-11-12.zip",
+      "bytes": 22683505,
+      "sha256": "0377210ee87186f4d9fc8113a79173d88d87bc77158e994251374f9f8ea5349f",
+      "file_count": 78,
+      "timely_care_entry": "yv7e-xc69_2026-10-19_Timely_and_Effective_Care-Hospital.csv",
+      "hospital_info_entry": "xubh-q36u_2026-10-26_Hospital_General_Information_2.csv",
+      "footnotes_entry": "y9us-9xdf_2025-09-18_Footnote_Crosswalk.csv",
+      "has_timely_care": true,
+      "rural_emergency_entries": [
+        "97xg-v3wv_2026-10-19_REH_Timely_and_Effective_Care-Hospital.csv",
+        "d2k3-k3ac_2026-10-19_REH_Timely_and_Effective_Care-National.csv"
+      ]
+    }
+  },
+  "inpatient_2024": {
+    "dataset_id": "690ddc6c-2767-4618-b277-420ffb2bf27c",
+    "api_url": "https://data.cms.gov/data-api/v1/dataset/690ddc6c-2767-4618-b277-420ffb2bf27c/data",
+    "facilities": [
+      "440029",
+      "440039",
+      "440073",
+      "440082",
+      "440161"
+    ],
+    "row_count": 709,
+    "bytes": 489225,
+    "sha256": "9ad16caf6fe0f2d7f7ac95afc1de510eec8d77e5903612759c9d75866a5d04b7"
+  }
+}

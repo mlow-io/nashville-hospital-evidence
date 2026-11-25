@@ -1,31 +1,34 @@
-# Nashville ED Measurement Brief (`S1`)
+# Nashville Hospital Evidence & Reconciliation Pack (`S1 → M1 + Sparse Archives + S2 RCM`)
 
-A compact, auditable reporting package comparing two Emergency Department measures (`OP_18b` and `OP_22`) across five Middle Tennessee hospitals using live pinned CMS Provider Data releases (`yv7e-xc69`, `xubh-q36u`, `y9us-9xdf`).
+An auditable SQLite, SQL, Python, and Excel reporting package using live pinned CMS Hospital Compare datasets (`yv7e-xc69`, `xubh-q36u`, `y9us-9xdf`), three historical CMS Hospital Archive releases (`2026-08-13`, `2026-09-30`, `2026-11-12`), and 2024 CMS Medicare Inpatient Hospitals by Provider and Service across five Middle Tennessee acute-care hospitals (`440029`, `440039`, `440073`, `440082`, `440161`).
 
-## Key Finding
+## Reconciliations Included
 
-Within the same CMS Hospital Compare release file, **`OP_18b`** (median ED duration, discharged cohort, minutes) covers **calendar year 2025**, while **`OP_22`** (left without being seen, %) covers **calendar year 2024**—and Ascension Saint Thomas (`440082`) carries `Not Available` (`Footnote 5`) rather than zero.
+1. **`S1` Core ED Measurement Guardrail:** Flags mixed reporting years (`2025` `OP_18b` minutes vs. `2024` `OP_22` %) inside the same CMS release and preserves `Not Available` (`Footnote 5` on `440082`) without coercing missingness to zero.
+2. **Reconciliation #4 — `M1` & Sparse CMS Archive Monitor (`2026-08-13 → 2026-09-30 → 2026-11-12`):** Rejects the similarly named Rural Emergency Hospital CSV (`97xg-v3wv`), preserves hospitals across sparse `2026-09-30` updates by carrying forward `2026-08-13`, classifies 9-month collection-window overlaps cleanly (`190 → 193` min at Williamson Medical Center), and exports SQL-tied workbook tabs.
+3. **Reconciliation #5 — Charge vs. Payment RCM (`S2`, 2024 Medicare Inpatient DRGs):** Computes discharge-weighted hospital averages across `709` Nashville DRG rows (`SUM(Tot_Dschrgs * Avg) / SUM(Tot_Dschrgs)`), exposes why unweighted averages distort totals, and separates chargemaster list prices from actual Medicare FFS payments.
 
 ## Quickstart
 
 ```sh
-python3 -m venv .venv
-source .venv/bin/activate
+python3 -m venv .venv && source .venv/bin/activate
 python3 -m pip install -e ".[dev]"
 
-# 1. Fetch and hash immutable raw CMS inputs into data/raw/
+# 1. Fetch live CMS Timely Care, archives, footnotes, and 2024 Inpatient DRG data
 PYTHONPATH=src python3 -m nashville_ed.fetch data/raw
+PYTHONPATH=src python3 -m nashville_ed.fetch_extended data/raw
 
-# 2. Build CSV, Markdown, HTML brief, and SHA-256 reconciliation receipt into outputs/
+# 2. Build S1 brief + M1 SQLite warehouse + Excel workbook + Reconciliations #4/#5
 PYTHONPATH=src python3 -m nashville_ed.build_brief data/raw outputs
+PYTHONPATH=src python3 -m nashville_ed.build_pack .
 
-# 3. Verify reference rows + deliberate mutation failure checks
-pytest -v
+# 3. Verify reference rows, sparse archives, SQL-to-Excel parity, and mutation tests
+PYTHONPATH=src python3 -m pytest -v
 ```
 
 ## Outputs
 
-- [`outputs/nashville_ed_brief.md`](outputs/nashville_ed_brief.md) & `outputs/nashville_ed_brief.html` — One-page manager brief with period labels, Footnote 5 decoded, and Limitations box
-- [`outputs/nashville_ed_observations.csv`](outputs/nashville_ed_observations.csv) — 10-row extract preserving raw strings, source row numbers, text IDs/ZIPs, and nullable parsed scores
-- [`outputs/receipt.json`](outputs/receipt.json) & [`outputs/receipt.md`](outputs/receipt.md) — Pinned CMS release metadata, SHA-256 digests, and `raw = retained + discarded` row accounting
-- [`EXPLAIN_BACK.md`](EXPLAIN_BACK.md) — 5-minute plain-English interview walkthrough
+- [`outputs/Nashville_Hospital_Evidence_Pack.xlsx`](outputs/Nashville_Hospital_Evidence_Pack.xlsx) — 6-tab Excel workbook (`Observations_M1`, `Sparse_Archive_Diffs`, `Charge_vs_Payment_RCM`, `Data_Dictionary`, `Exceptions_and_Caveats`, `Sources_and_Audit`)
+- [`outputs/reconciliation_4_hospital_releases.md`](outputs/reconciliation_4_hospital_releases.md) — Sparse archive & 9-month period-overlap reconciliation
+- [`outputs/reconciliation_5_charge_vs_payment.md`](outputs/reconciliation_5_charge_vs_payment.md) — Discharge-weighted Inpatient Charge vs. Payment report
+- [`outputs/nashville_ed_brief.md`](outputs/nashville_ed_brief.md) · [`sql/reporting_queries.sql`](sql/reporting_queries.sql) · [`EXPLAIN_BACK.md`](EXPLAIN_BACK.md)
