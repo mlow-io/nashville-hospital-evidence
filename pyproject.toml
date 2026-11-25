@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Reproducible five-hospital Nashville ED measurement brief backed by pinned CMS Timely & Effective Care releases."
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = ["openpyxl>=3.1"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0"]
